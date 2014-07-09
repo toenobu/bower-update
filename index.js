@@ -53,12 +53,17 @@ module.exports = function(options, allDone) {
 	};
 
 	var isUpdateAvailable = function(component) {
-		if (opts.args()[0] == true) {
-			console.log(component.pkgMeta.name + ':' +  chalk.red(component.update.latest) + ' → ' + chalk.green(component.update.latest));
-			var q = "Upgrade now? [Y]es, [N]o";
-			var answer = readlineSync.question(q);
+		if (component.update.target !== component.update.latest) {
+			if (options.interactive != undefined) {
+				console.log(component.pkgMeta.name + ':' +  chalk.red(component.update.target) + ' → ' + chalk.green(component.update.latest));
+				var q = "Upgrade now? [Y]es, [N]o";
+				do {
+					var answer = readlineSync.question(q);
+				} while (answer != "Y" && answer != "N");
+				if (answer == "Y") return true;
+			}
 		}
-		return component.update.target !== component.update.latest;
+		return false;
 	};
 
 	async.waterfall([

@@ -11,12 +11,12 @@ var updater = require('../index');
 var opts = require('opts');
 
 opts.parse([
-    {
-        'long': 'interactive',
-        'description': 'update interactive'
-    },
+	{
+		'long': 'interactive',
+		'description': 'update interactive'
+	},
 ]);
- 
+
 updater({
 	cwd: process.cwd(),
     interactive : opts.get('interactive')
