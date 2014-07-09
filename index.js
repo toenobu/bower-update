@@ -6,9 +6,12 @@
 
 'use strict';
 
+var chalk = require('chalk');
 var bower = require('bower');
 var _ = require('lodash');
 var async = require('async');
+var opts = require("opts");
+var readlineSync = require('readline-sync');
 
 module.exports = function(options, allDone) {
 
@@ -50,7 +53,17 @@ module.exports = function(options, allDone) {
 	};
 
 	var isUpdateAvailable = function(component) {
-		return component.update.target !== component.update.latest;
+		if (component.update.target !== component.update.latest) {
+			if (options.interactive != undefined) {
+				console.log(component.pkgMeta.name + ':' +  chalk.red(component.update.target) + ' → ' + chalk.green(component.update.latest));
+				var q = "Upgrade now? [Y]es, [N]o";
+				do {
+					var answer = readlineSync.question(q);
+				} while (answer != "Y" && answer != "N");
+				if (answer == "Y") return true;
+			}
+		}
+		return false;
 	};
 
 	async.waterfall([
