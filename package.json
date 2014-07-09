@@ -41,7 +41,6 @@
     "lodash": "~2.4.1",
     "chalk": "~0.4.0",
     "opts": "~1.2.2",
-    "readline": "~0.0.3",
     "readline-sync": "~0.2.5"
   },
   "devDependencies": {
