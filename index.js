@@ -10,7 +10,6 @@ var chalk = require('chalk');
 var bower = require('bower');
 var _ = require('lodash');
 var async = require('async');
-var opts = require("opts");
 var readlineSync = require('readline-sync');
 
 module.exports = function(options, allDone) {
@@ -58,7 +57,7 @@ module.exports = function(options, allDone) {
 			console.log(component.pkgMeta.name + ': ' +  chalk.red(component.update.target) + ' → ' + chalk.green(component.update.latest));
 			var q = "Upgrade now? [Y]es, [N]o:";
 			var answer = readlineSync.question(q);
-			if (answer != "Y") return false;
+			if (answer !== "Y") return false;
 		}
 		return true;
 	};
